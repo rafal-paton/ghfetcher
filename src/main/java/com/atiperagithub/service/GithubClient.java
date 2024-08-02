@@ -4,7 +4,7 @@ import com.atiperagithub.dto.BranchWithCommitsDto;
 import com.atiperagithub.dto.RepositoryDto;
 import reactor.core.publisher.Flux;
 
-public interface GithubClient {
+interface GithubClient {
 
     Flux<BranchWithCommitsDto> makeRequestForBranches(final String userName, final String repoName);
 

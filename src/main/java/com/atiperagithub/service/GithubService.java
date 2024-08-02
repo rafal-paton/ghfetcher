@@ -22,7 +22,7 @@ public class GithubService {
                 .flatMap(repository -> createRepositoryResponseDto(userName, repository));
     }
 
-    public Mono<RepositoryResponseDto> createRepositoryResponseDto(final String userName, final RepositoryDto repo) {
+    Mono<RepositoryResponseDto> createRepositoryResponseDto(final String userName, final RepositoryDto repo) {
         return fetchBranches(userName, repo.name())
                 .collectList()
                 .map(branches -> RepositoryResponseDto.builder()
@@ -32,7 +32,7 @@ public class GithubService {
                         .build());
     }
 
-    public Flux<BranchWithShaDto> fetchBranches(final String userName, final String repoName) {
+    Flux<BranchWithShaDto> fetchBranches(final String userName, final String repoName) {
         return githubClient.makeRequestForBranches(userName, repoName)
                 .map(branchDto -> new BranchWithShaDto(branchDto.name(), branchDto.commit().sha()));
     }
