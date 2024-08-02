@@ -17,6 +17,7 @@ import reactor.test.StepVerifier;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class GithubServiceTest {
@@ -45,8 +46,14 @@ class GithubServiceTest {
 
         // Then
         StepVerifier.create(result)
-                .expectNext(new BranchWithShaDto("main", "sha123"))
-                .expectNext(new BranchWithShaDto("develop", "sha456"))
+                .assertNext(branch -> {
+                    assertThat(branch.name()).isEqualTo("main");
+                    assertThat(branch.sha()).isEqualTo("sha123");
+                })
+                .assertNext(branch -> {
+                    assertThat(branch.name()).isEqualTo("develop");
+                    assertThat(branch.sha()).isEqualTo("sha456");
+                })
                 .verifyComplete();
     }
 
@@ -66,14 +73,15 @@ class GithubServiceTest {
 
         //Then
         StepVerifier.create(result)
-                .expectNextMatches(response ->
-                        response.ownerLogin().equals(TEST_USER) &&
-                                response.repositoryName().equals(TEST_REPO) &&
-                                response.branches().size() == 2 &&
-                                response.branches().get(0).name().equals("main") &&
-                                response.branches().get(0).sha().equals("sha123") &&
-                                response.branches().get(1).name().equals("dev") &&
-                                response.branches().get(1).sha().equals("sha456"))
+                .assertNext(response -> {
+                    assertThat(response.ownerLogin()).isEqualTo(TEST_USER);
+                    assertThat(response.repositoryName()).isEqualTo(TEST_REPO);
+                    assertThat(response.branches()).hasSize(2);
+                    assertThat(response.branches().get(0).name()).isEqualTo("main");
+                    assertThat(response.branches().get(0).sha()).isEqualTo("sha123");
+                    assertThat(response.branches().get(1).name()).isEqualTo("dev");
+                    assertThat(response.branches().get(1).sha()).isEqualTo("sha456");
+                })
                 .verifyComplete();
     }
 
@@ -95,13 +103,13 @@ class GithubServiceTest {
 
         // Then
         StepVerifier.create(result)
-                .expectNextMatches(repo ->
-                        repo.repositoryName().equals("nonForkRepo") &&
-                                repo.ownerLogin().equals(TEST_USER) &&
-                                repo.branches().size() == 1 &&
-                                repo.branches().get(0).name().equals("main") &&
-                                repo.branches().get(0).sha().equals("sha123")
-                )
+                .assertNext(repo -> {
+                    assertThat(repo.repositoryName()).isEqualTo("nonForkRepo");
+                    assertThat(repo.ownerLogin()).isEqualTo(TEST_USER);
+                    assertThat(repo.branches()).hasSize(1);
+                    assertThat(repo.branches().get(0).name()).isEqualTo("main");
+                    assertThat(repo.branches().get(0).sha()).isEqualTo("sha123");
+                })
                 .verifyComplete();
     }
 
