@@ -19,8 +19,6 @@ git clone https://github.com/rafal-paton/atipera-github.git
 Navigate to the project directory and run the Application:
 ```bash
 cd /atipera-github
-```
-```bash
 ./mvnw spring-boot:run
 ```
 
