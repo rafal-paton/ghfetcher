@@ -22,11 +22,6 @@ cd /atipera-github
 ./mvnw spring-boot:run
 ```
 
-If Maven is installed globally:
-```bash
-mvn spring-boot:run
-```
-
 ## Usage
 
 #### Base URL:
