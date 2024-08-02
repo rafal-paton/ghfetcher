@@ -15,6 +15,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
 @AutoConfigureWireMock(port = 8081)
@@ -52,14 +53,19 @@ class GithubRestControllerTest {
                 .expectBodyList(RepositoryResponseDto.class)
                 .hasSize(1)
                 .value(repo -> {
-                    assert repo != null;
-                    RepositoryResponseDto repository = repo.getFirst();
-                    assert repository.repositoryName().equals("songify");
-                    assert repository.ownerLogin().equals("rafal-paton");
-                    assert repository.branches().get(0).name().equals("first");
-                    assert repository.branches().get(0).sha().equals("123456789");
-                    assert repository.branches().get(1).name().equals("second");
-                    assert repository.branches().get(1).sha().equals("987654321");
+                    assertThat(repo).isNotNull();
+                    assertThat(repo).hasSize(1);
+                    RepositoryResponseDto repository = repo.get(0);
+                    assertThat(repository).isNotNull();
+                    assertThat(repository.repositoryName()).isEqualTo("songify");
+                    assertThat(repository.ownerLogin()).isEqualTo("rafal-paton");
+                    assertThat(repository.branches()).hasSize(2);
+                    assertThat(repository.branches().get(0)).isNotNull();
+                    assertThat(repository.branches().get(0).name()).isEqualTo("first");
+                    assertThat(repository.branches().get(0).sha()).isEqualTo("123456789");
+                    assertThat(repository.branches().get(1)).isNotNull();
+                    assertThat(repository.branches().get(1).name()).isEqualTo("second");
+                    assertThat(repository.branches().get(1).sha()).isEqualTo("987654321");
                 });
     }
 
