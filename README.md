@@ -3,12 +3,14 @@
 This Spring Boot application provides an efficient way to fetch all non-forked repositories for a given GitHub username, retrieving detailed information about each repository, including branch names and their last commit SHA.
 Technologies used: Java 21, Spring Boot 3, Maven, Mockito, WireMock.
 
+
 ## Features
 - Reactive Repository Fetching: Leverages Spring WebFlux for asynchronous communication with the GitHub
 - JSON Format Enforcement: Ensures API responses in JSON format, handling incorrect Accept headers
 - Logging: Employs Log4j2 for recording significant events and errors
 - Custom Exception Handling: Defines and manages custom exceptions
 - Reactive Testing Support: Enables effective testing of reactive streams using tools like StepVerifier
+
 
 ## Run
 Clone the project:
@@ -21,6 +23,7 @@ Navigate to the project directory and run the Application:
 cd /atipera-github
 ./mvnw spring-boot:run
 ```
+
 
 ## Usage
 
