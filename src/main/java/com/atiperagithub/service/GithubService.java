@@ -17,9 +17,9 @@ public class GithubService {
     private final GithubClient githubClient;
 
     public Flux<RepositoryResponseDto> fetchUserRepositoriesWithBranches(final String userName) {
-            return githubClient.makeRequestForUserRepos(userName)
-                    .filter(repository -> !repository.fork())
-                    .flatMap(repository -> createRepositoryResponseDto(userName, repository));
+        return githubClient.makeRequestForUserRepos(userName)
+                .filter(repository -> !repository.fork())
+                .flatMap(repository -> createRepositoryResponseDto(userName, repository));
     }
 
     public Mono<RepositoryResponseDto> createRepositoryResponseDto(final String userName, final RepositoryDto repo) {
@@ -30,7 +30,7 @@ public class GithubService {
                         .repositoryName(repo.name())
                         .branches(branches)
                         .build());
-        }
+    }
 
     public Flux<BranchWithShaDto> fetchBranches(final String userName, final String repoName) {
         return githubClient.makeRequestForBranches(userName, repoName)

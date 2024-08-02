@@ -51,6 +51,61 @@ class GithubServiceTest {
     }
 
     @Test
+    public void should_create_RepositoryResponseDto_correctly() {
+        // Given
+        RepositoryDto repo = new RepositoryDto(TEST_REPO, false);
+
+        BranchWithCommitsDto branchDto1 = new BranchWithCommitsDto("main", new CommitDto("sha123"));
+        BranchWithCommitsDto branchDto2 = new BranchWithCommitsDto("dev", new CommitDto("sha456"));
+
+        when(githubClient.makeRequestForBranches(anyString(), anyString()))
+                .thenReturn(Flux.just(branchDto1, branchDto2));
+
+        // When
+        Mono<RepositoryResponseDto> result = githubService.createRepositoryResponseDto(TEST_USER, repo);
+
+        //Then
+        StepVerifier.create(result)
+                .expectNextMatches(response ->
+                        response.ownerLogin().equals(TEST_USER) &&
+                                response.repositoryName().equals(TEST_REPO) &&
+                                response.branches().size() == 2 &&
+                                response.branches().get(0).name().equals("main") &&
+                                response.branches().get(0).sha().equals("sha123") &&
+                                response.branches().get(1).name().equals("dev") &&
+                                response.branches().get(1).sha().equals("sha456"))
+                .verifyComplete();
+    }
+
+    @Test
+    void should_fetch_user_repositories_with_branches_and_filter_forks() {
+        // Given
+        RepositoryDto nonForkRepo = new RepositoryDto("nonForkRepo", false);
+        RepositoryDto forkRepo = new RepositoryDto("forkRepo", true);
+
+        when(githubClient.makeRequestForUserRepos(TEST_USER))
+                .thenReturn(Flux.just(nonForkRepo, forkRepo));
+
+        BranchWithCommitsDto branchDto = new BranchWithCommitsDto("main", new CommitDto("sha123"));
+        when(githubClient.makeRequestForBranches(anyString(), anyString()))
+                .thenReturn(Flux.just(branchDto));
+
+        // When
+        Flux<RepositoryResponseDto> result = githubService.fetchUserRepositoriesWithBranches(TEST_USER);
+
+        // Then
+        StepVerifier.create(result)
+                .expectNextMatches(repo ->
+                        repo.repositoryName().equals("nonForkRepo") &&
+                                repo.ownerLogin().equals(TEST_USER) &&
+                                repo.branches().size() == 1 &&
+                                repo.branches().get(0).name().equals("main") &&
+                                repo.branches().get(0).sha().equals("sha123")
+                )
+                .verifyComplete();
+    }
+
+    @Test
     void should_throw_user_not_found_exception_when_non_existent_user_was_received() {
         // Given
         when(githubClient.makeRequestForUserRepos(NON_EXISTENT_USER))
@@ -67,66 +122,4 @@ class GithubServiceTest {
                 )
                 .verify();
     }
-
-
-
-
-
-
-
-
-    @Test
-    void should_fetch_user_repositories_with_branches_and_filter_forks() {
-        // Given
-        RepositoryDto nonForkRepo = new RepositoryDto("testUser", false);
-        RepositoryDto forkRepo = new RepositoryDto("forkRepo", true);
-
-        when(githubClient.makeRequestForUserRepos("testUser"))
-                .thenReturn(Flux.just(nonForkRepo, forkRepo));
-
-        BranchWithCommitsDto branchDto = new BranchWithCommitsDto("main", new CommitDto("sha123"));
-        when(githubClient.makeRequestForBranches(anyString(), anyString()))
-                .thenReturn(Flux.just(branchDto));
-
-        // When
-        Flux<RepositoryResponseDto> result = githubService.fetchUserRepositoriesWithBranches(TEST_USER);
-
-        // Then
-        StepVerifier.create(result)
-                .expectNextMatches(repo ->
-                        repo.repositoryName().equals(TEST_REPO) &&
-                                repo.ownerLogin().equals(TEST_USER) &&
-                                repo.branches().size() == 1 &&
-                                repo.branches().get(0).name().equals("main") &&
-                                repo.branches().get(0).sha().equals("sha123")
-                )
-                .verifyComplete();
-    }
-
-    @Test
-    void should_create_RepositoryResponseDto_correctly() {
-        // Given
-        RepositoryDto repoDto = new RepositoryDto(TEST_USER, false);
-        BranchWithCommitsDto branchDto = new BranchWithCommitsDto("main", new CommitDto("sha123"));
-
-        when(githubClient.makeRequestForBranches(TEST_USER, TEST_REPO))
-                .thenReturn(Flux.just(branchDto));
-
-        // When
-        Mono<RepositoryResponseDto> result = githubService.createRepositoryResponseDto(TEST_USER, repoDto);
-
-        // Then
-        StepVerifier.create(result)
-                .expectNextMatches(repo ->
-                        repo.repositoryName().equals(TEST_REPO) &&
-                                repo.ownerLogin().equals(TEST_USER) &&
-                                repo.branches().size() == 1 &&
-                                repo.branches().get(0).name().equals("main") &&
-                                repo.branches().get(0).sha().equals("sha123")
-                )
-                .verifyComplete();
-    }
-
-
-
 }

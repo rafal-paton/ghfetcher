@@ -1,4 +1,4 @@
-package com.atiperagithub.httpClient;
+package com.atiperagithub.client;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
