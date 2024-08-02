@@ -1,0 +1,14 @@
+[
+  {
+    "name": "first",
+    "commit": {
+      "sha": "123456789"
+    }
+  },
+  {
+    "name": "second",
+    "commit": {
+      "sha": "987654321"
+    }
+  }
+]
