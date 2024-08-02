@@ -51,7 +51,7 @@ class GithubServiceTest {
     }
 
     @Test
-    public void should_create_RepositoryResponseDto_correctly() {
+    void should_create_RepositoryResponseDto_correctly() {
         // Given
         RepositoryDto repo = new RepositoryDto(TEST_REPO, false);
 

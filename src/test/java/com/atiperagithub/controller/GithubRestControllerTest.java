@@ -82,7 +82,7 @@ class GithubRestControllerTest {
     }
 
     @Test
-    public void should_return_404_user_not_found_for_non_existent_user() {
+    void should_return_404_user_not_found_for_non_existent_user() {
         wireMockServer.stubFor(get(urlEqualTo("/users/nonExistentUser/repos"))
                 .willReturn(aResponse()
                         .withStatus(404)));
