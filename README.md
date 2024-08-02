@@ -5,11 +5,11 @@ Technologies used: Java 21, Spring Boot 3 and Maven.
 
 
 ## Features
-- Reactive Repository Fetching: Leverages Spring WebFlux for asynchronous communication with the GitHub
-- JSON Format Enforcement: Ensures API responses in JSON format, handling incorrect Accept headers
-- Logging: Employs Log4j2 for recording significant events and errors
-- Custom Exception Handling: Defines and manages custom exceptions
-- Reactive Testing Support: Enables effective testing of reactive streams using tools like StepVerifier
+- Reactive Repository Fetching: Leverages Spring WebFlux for asynchronous communication with the GitHub.
+- JSON Format Enforcement: Ensures API responses in JSON format, handling incorrect Accept headers.
+- Logging: Employs Log4j2 for recording significant events and errors.
+- Custom Exception Handling: Defines and manages custom exceptions.
+- Reactive Testing Support: Enables effective testing of reactive streams using tools like StepVerifier.
 
 
 ## Run
