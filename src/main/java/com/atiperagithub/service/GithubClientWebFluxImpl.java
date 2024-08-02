@@ -16,6 +16,7 @@ class GithubClientWebFluxImpl implements GithubClient {
 
     private final WebClient webClient;
 
+    @Override
     public Flux<RepositoryDto> makeRequestForUserRepos(final String userName) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
