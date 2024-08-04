@@ -1,4 +1,4 @@
-## GitHub Repository API
+## GitHub Fetcher
 
 This Spring Boot application provides an efficient way to fetch all non-forked repositories for a given GitHub username, retrieving detailed information about each repository, including branch names and their last commit SHA.
 Technologies used: Java 21, Spring Boot 3 and Maven.
