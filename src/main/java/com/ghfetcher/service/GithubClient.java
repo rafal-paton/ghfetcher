@@ -1,7 +1,7 @@
-package com.atiperagithub.service;
+package com.ghfetcher.service;
 
-import com.atiperagithub.dto.BranchWithCommitsDto;
-import com.atiperagithub.dto.RepositoryDto;
+import com.ghfetcher.dto.BranchWithCommitsDto;
+import com.ghfetcher.dto.RepositoryDto;
 import reactor.core.publisher.Flux;
 
 interface GithubClient {

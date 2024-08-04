@@ -1,8 +1,8 @@
-package com.atiperagithub.controller;
+package com.ghfetcher.controller;
 
-import com.atiperagithub.dto.RepositoryResponseDto;
-import com.atiperagithub.error.WrongAcceptHeaderException;
-import com.atiperagithub.service.GithubService;
+import com.ghfetcher.dto.RepositoryResponseDto;
+import com.ghfetcher.error.WrongAcceptHeaderException;
+import com.ghfetcher.service.GithubService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpHeaders;

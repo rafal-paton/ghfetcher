@@ -15,12 +15,12 @@ Technologies used: Java 21, Spring Boot 3 and Maven.
 ## Run
 Clone the project:
 ```bash
-git clone https://github.com/rafal-paton/atipera-github.git
+git clone https://github.com/rafal-paton/ghfetcher.git
 ```
 
 Navigate to the project directory and run the application:
 ```bash
-cd /atipera-github
+cd /ghfetcher
 ./mvnw spring-boot:run
 ```
 

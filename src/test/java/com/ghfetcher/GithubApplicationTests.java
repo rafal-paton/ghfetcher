@@ -1,4 +1,4 @@
-package com.atiperagithub;
+package com.ghfetcher;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

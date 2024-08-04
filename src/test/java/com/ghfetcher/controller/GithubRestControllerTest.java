@@ -1,6 +1,6 @@
-package com.atiperagithub.controller;
+package com.ghfetcher.controller;
 
-import com.atiperagithub.dto.RepositoryResponseDto;
+import com.ghfetcher.dto.RepositoryResponseDto;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package com.atiperagithub.service;
+package com.ghfetcher.service;
 
-import com.atiperagithub.dto.BranchWithCommitsDto;
-import com.atiperagithub.dto.RepositoryDto;
-import com.atiperagithub.error.UserNotFoundException;
+import com.ghfetcher.dto.BranchWithCommitsDto;
+import com.ghfetcher.dto.RepositoryDto;
+import com.ghfetcher.error.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

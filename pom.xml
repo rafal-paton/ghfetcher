@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com</groupId>
-    <artifactId>atipera-github</artifactId>
+    <artifactId>ghfetcher</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>atipera-github</name>
-    <description>atipera-github</description>
+    <name>ghfetcher</name>
+    <description>ghfetcher</description>
 
     <properties>
         <java.version>21</java.version>

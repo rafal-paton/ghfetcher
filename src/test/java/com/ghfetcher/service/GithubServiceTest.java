@@ -1,11 +1,11 @@
-package com.atiperagithub.service;
+package com.ghfetcher.service;
 
-import com.atiperagithub.dto.BranchWithCommitsDto;
-import com.atiperagithub.dto.BranchWithShaDto;
-import com.atiperagithub.dto.CommitDto;
-import com.atiperagithub.dto.RepositoryDto;
-import com.atiperagithub.dto.RepositoryResponseDto;
-import com.atiperagithub.error.UserNotFoundException;
+import com.ghfetcher.dto.BranchWithCommitsDto;
+import com.ghfetcher.dto.BranchWithShaDto;
+import com.ghfetcher.dto.CommitDto;
+import com.ghfetcher.dto.RepositoryDto;
+import com.ghfetcher.dto.RepositoryResponseDto;
+import com.ghfetcher.error.UserNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,4 +1,4 @@
-package com.atiperagithub.dto;
+package com.ghfetcher.dto;
 
 import lombok.Builder;
 

@@ -1,8 +1,8 @@
-package com.atiperagithub.service;
+package com.ghfetcher.service;
 
-import com.atiperagithub.dto.BranchWithShaDto;
-import com.atiperagithub.dto.RepositoryDto;
-import com.atiperagithub.dto.RepositoryResponseDto;
+import com.ghfetcher.dto.BranchWithShaDto;
+import com.ghfetcher.dto.RepositoryDto;
+import com.ghfetcher.dto.RepositoryResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

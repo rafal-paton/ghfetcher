@@ -1,4 +1,4 @@
-package com.atiperagithub.error;
+package com.ghfetcher.error;
 
 public class WrongAcceptHeaderException extends RuntimeException {
     public WrongAcceptHeaderException(String message) {
