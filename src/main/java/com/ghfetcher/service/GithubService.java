@@ -4,12 +4,10 @@ import com.ghfetcher.dto.BranchWithShaDto;
 import com.ghfetcher.dto.RepositoryDto;
 import com.ghfetcher.dto.RepositoryResponseDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Log4j2
 @RequiredArgsConstructor
 @Service
 public class GithubService {
