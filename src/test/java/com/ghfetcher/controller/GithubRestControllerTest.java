@@ -92,4 +92,51 @@ class GithubRestControllerTest {
                 .exchange()
                 .expectStatus().isNotFound();
     }
+
+    @Test
+    void should_handle_parallel_requests_within_expected_time() {
+        wireMockServer.stubFor(get(urlPathMatching("/users/.+/repos"))
+                .willReturn(aResponse()
+                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .withFixedDelay(100)
+                        .withBodyFile("repositories.json")
+                ));
+
+        wireMockServer.stubFor(get(urlPathMatching("/repos/.+/.+/branches"))
+                .willReturn(aResponse()
+                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .withFixedDelay(200)
+                        .withBodyFile("branches.json")
+                ));
+
+        long startTime = System.currentTimeMillis();
+
+        webTestClient.get()
+                .uri("/api/github/rafal-paton")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(200)
+                .expectBodyList(RepositoryResponseDto.class)
+                .hasSize(1)
+                .value(repo -> {
+                    assertThat(repo).isNotNull();
+                    assertThat(repo).hasSize(1);
+                    RepositoryResponseDto repository = repo.get(0);
+                    assertThat(repository).isNotNull();
+                    assertThat(repository.repositoryName()).isEqualTo("songify");
+                    assertThat(repository.ownerLogin()).isEqualTo("rafal-paton");
+                    assertThat(repository.branches()).hasSize(2);
+                    assertThat(repository.branches().get(0)).isNotNull();
+                    assertThat(repository.branches().get(0).name()).isEqualTo("first");
+                    assertThat(repository.branches().get(0).sha()).isEqualTo("123456789");
+                    assertThat(repository.branches().get(1)).isNotNull();
+                    assertThat(repository.branches().get(1).name()).isEqualTo("second");
+                    assertThat(repository.branches().get(1).sha()).isEqualTo("987654321");
+                });
+
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+
+        assertThat(elapsedTime).isLessThan(400);
+    }
 }
